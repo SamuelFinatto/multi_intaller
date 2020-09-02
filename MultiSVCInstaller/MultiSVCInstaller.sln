@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSVCInstaller", "MultiSVCInstaller.csproj", "{9481E2D5-40C9-42C2-A416-A3AF80BDD9CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSVCInstaller", "MultiSVCInstaller.csproj", "{9481E2D5-40C9-42C2-A416-A3AF80BDD9CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSVC.Core", "..\MultiSVC.Core\MultiSVC.Core.csproj", "{F1594558-B58F-464B-A0DF-19A0E1ED778D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSVC.Core", "..\MultiSVC.Core\MultiSVC.Core.csproj", "{F1594558-B58F-464B-A0DF-19A0E1ED778D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSVC.Tests", "..\MultiSVC.Tests\MultiSVC.Tests.csproj", "{3161B8CE-5FD2-48C4-8AF0-AC4B0B02457F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F1594558-B58F-464B-A0DF-19A0E1ED778D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1594558-B58F-464B-A0DF-19A0E1ED778D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1594558-B58F-464B-A0DF-19A0E1ED778D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3161B8CE-5FD2-48C4-8AF0-AC4B0B02457F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3161B8CE-5FD2-48C4-8AF0-AC4B0B02457F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3161B8CE-5FD2-48C4-8AF0-AC4B0B02457F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3161B8CE-5FD2-48C4-8AF0-AC4B0B02457F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
