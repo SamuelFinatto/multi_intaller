@@ -32,13 +32,9 @@ namespace MultiSVC.Tests
         {
             var folderinfo = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"folder{DateTime.Now:hhmmss}"));
             bool result = false;
-            using (FileStream fs = File.Open(Path.Combine(folderinfo.FullName,"file.file"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            using (FileStream fs = File.Open(Path.Combine(folderinfo.FullName,"file"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
             {
-                Byte[] info = new UTF8Encoding(true).GetBytes("This is some text in the file.");
-
                 result = MultiSVC.Core.Helpers.IO.CheckFolderAccess(folderinfo.FullName);
-                // Add some information to the file.
-                fs.Write(info, 0, info.Length);
             }
             Assert.IsFalse(result);
         }
