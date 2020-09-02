@@ -21,7 +21,7 @@ steps:
     projects: '**/*.csproj'
     feedsToUse: 'select'
 
-- script: dotnet build MultiSVCInstaller.sln --configuration $(buildConfiguration)
+- script: dotnet build MultiSVCInstaller/MultiSVCInstaller.sln --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - task: DotNetCoreCLI@2
   inputs:
