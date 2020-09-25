@@ -1,18 +1,15 @@
-﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Text;
+using System.Threading;
 
 namespace MultiSVC.Core.Helpers
 {
     public static class IO
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static bool CheckFolderAccess(string folderPath)
         {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-
             if (!Directory.Exists(folderPath))
                 return false;
 
@@ -21,12 +18,13 @@ namespace MultiSVC.Core.Helpers
                 DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
                 var folderName = directoryInfo.Name;
                 var date = DateTime.Now.ToString("hhmmss");
-                directoryInfo.RenameTo($"{folderName}.{date}");
-                logger.Info("Folder is enable to access");
+                directoryInfo.RenameTo($"{folderName}_{date}");
+                Thread.Sleep(10);
                 directoryInfo.RenameTo(folderName);
+                logger.Info("Folder is able to access");
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Error(ex, "Folder unable to be accessed.");
                 return false;
@@ -35,19 +33,57 @@ namespace MultiSVC.Core.Helpers
 
         public static void RenameTo(this DirectoryInfo di, string name)
         {
+            logger.Info($"Renaming {di.Name} to {name}");
             if (di == null)
-            {
                 throw new ArgumentNullException("di", "Directory info to rename cannot be null");
-            }
 
             if (string.IsNullOrWhiteSpace(name))
-            {
                 throw new ArgumentException("New name cannot be null or blank", "name");
-            }
 
             di.MoveTo(Path.Combine(di.Parent.FullName, name));
+            logger.Info("Rename OK.");
+        }
 
-            return; //done
+        public static bool MoveFolder(string source, string dest, bool overwrite)
+        {
+            if (string.IsNullOrWhiteSpace(source) || string.IsNullOrWhiteSpace(dest))
+                throw new ArgumentException("parameters cannot be null or blank");
+
+            try
+            {
+                logger.Info($"Moving {source} to {dest}...");
+                if (overwrite && Directory.Exists(dest))
+                    Directory.Delete(dest);
+
+                Directory.Move(source, dest);
+                logger.Info($"{source} moved to {dest}");
+            }
+            catch (IOException ex)
+            {
+                logger.Error(ex, $"Error when moving {source}");
+                return false;
+            }
+            return true;
+        }
+
+        public static bool DeleteFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                logger.Error($"folder {path} does not exist.");
+                return false;
+            }
+
+            logger.Info($"Checking {path} access...");
+            if (!CheckFolderAccess(path))
+            {
+                logger.Error($"folder {path} not able to be deleted, is being used.");
+                return false;
+            }
+
+            Directory.Delete(path);
+            logger.Info($"folder {path} removed");
+            return true;
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using MultiSVC.Core.Helpers;
+using System;
+using System.IO;
 
 namespace MultiSVC.Tests
 {
@@ -13,8 +11,7 @@ namespace MultiSVC.Tests
         [TestMethod]
         public void CheckFolderAccess_insertnull_returnFalse()
         {
-            var result = MultiSVC.Core.Helpers.IO.CheckFolderAccess(null);
-
+            var result = IO.CheckFolderAccess(null);
             Assert.IsFalse(result);
         }
 
@@ -22,20 +19,19 @@ namespace MultiSVC.Tests
         public void CheckFolderAccess_insertvalidFolder_returnTrue()
         {
             var folderinfo = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"folder{DateTime.Now:hhmmss}"));
-            var result = MultiSVC.Core.Helpers.IO.CheckFolderAccess(folderinfo.FullName);
-
+            var result = IO.CheckFolderAccess(folderinfo.FullName);
             Assert.IsTrue(result);
         }
 
         [TestMethod]
-        [Ignore("Azure DevOps is taking issues with that")] 
+        [Ignore("Azure DevOps is taking issues with that")]
         public void CheckFolderAccess_insertvalidFolderWithFileOpen_returnFalse()
         {
             var folderinfo = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"folder{DateTime.Now:hhmmss}"));
             bool result = false;
-            using (FileStream fs = File.Open(Path.Combine(folderinfo.FullName,"file"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            using (FileStream fs = File.Open(Path.Combine(folderinfo.FullName, "file"), FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
             {
-                result = MultiSVC.Core.Helpers.IO.CheckFolderAccess(folderinfo.FullName);
+                result = IO.CheckFolderAccess(folderinfo.FullName);
             }
             Assert.IsFalse(result);
         }
