@@ -1,0 +1,23 @@
+{
+  "ServiceJson": 
+  [
+    {
+      "artifactpath": "Metris.Service.7z",
+      "arguments": "",
+      "deploymentPath": "Metris.Service",
+      "executablePath": "Metris.Service",
+      "isInstalled": false,
+      "serviceName": "Metris.Service",
+      "serviceStartMode": 0
+    },
+    {
+      "artifactpath": "Metris.Service.Jobs.7z",
+      "arguments": "",
+      "deploymentPath": "Metris.Service.Jobs",
+      "executablePath": "Metris.Service.Jobs",
+      "isInstalled": false,
+      "serviceName": "Metris.Service.Jobs",
+      "serviceStartMode": 0
+    }
+  ]
+}

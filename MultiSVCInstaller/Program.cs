@@ -1,4 +1,10 @@
-﻿using System;
+﻿using MultiSVC.Core.Factories;
+using Newtonsoft.Json;
+using NLog.Layouts;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 namespace MultiSVCInstaller
 {
@@ -8,11 +14,12 @@ namespace MultiSVCInstaller
         {
             Console.WriteLine("Hello World!");
 
-            MultiSVC.Core.Helpers.ServiceInstaller installer = new MultiSVC.Core.Helpers.ServiceInstaller();
+            var jsonString = File.ReadAllText("ServicesConfig.json");
 
-            var result = installer.InstallService(@"C:\Users\samue\AppData\Roaming\uTorrent\uTorrent.exe", "TestingService", "Service DisplayName", "Super description");
+            
+            var services = JsonConvert.DeserializeObject<ServiceJson>(jsonString).Services;
 
-            var rresult = installer.UnInstallService("TestingService");
         }
     }
 }
+ 
